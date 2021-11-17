@@ -1,29 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.util.Random;
+
 
 // TODO : redéfinir la fonction hashValue() et equals(Object) si vous souhaitez utiliser la hashmap de VueControleurGrille avec VueCase en clef
 
 public class VueCase extends JPanel {
     private int x, y;
-    private CaseType type;
-    private static Random rnd = new Random();
+    public ModelCase m = new ModelCase();
 
     public VueCase(int _x, int _y) {
         x = _x;
         y = _y;
 
-        rndType();
-
-    }
-
-    public void rndType() {
-
-
-        type = CaseType.values()[rnd.nextInt(CaseType.values().length)];
+        m.rndType();
         repaint();
     }
+
+
 
     private void drawNoon(Graphics g) {
         g.drawLine(getWidth()/2, getHeight()/2, getWidth()/2, 0);
@@ -43,7 +37,7 @@ public class VueCase extends JPanel {
 
 
 
-    @Override
+
     public void paintComponent(Graphics g) {
         g.clearRect(0, 0, getWidth(), getHeight());
 
@@ -52,7 +46,7 @@ public class VueCase extends JPanel {
         Rectangle2D deltaText =  g.getFont().getStringBounds("0", g.getFontMetrics().getFontRenderContext()); // "0" utilisé pour gabarit
 
 
-        switch(type) {
+        switch(m.getType()) {
             case S1 :
                 g.drawString("1", getWidth()/2 - (int) deltaText.getCenterX(), getHeight()/2 - (int) deltaText.getCenterY());
                 break;
@@ -77,8 +71,8 @@ public class VueCase extends JPanel {
                 drawSix(g);
                 break;
             case h1v0:
-                // TODO
-
+                drawThree(g);
+                drawNoon(g);
                 break;
             case h1v1 :
                 drawThree(g);
