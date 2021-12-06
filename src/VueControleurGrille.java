@@ -36,8 +36,7 @@ public class VueControleurGrille extends JFrame implements Observer {
         }
         setContentPane(contentPane);
 
-
-
+        System.out.println("["+tabCV[0][0].x+" ,"+tabCV[0][0].y+"]");
     }
 
 

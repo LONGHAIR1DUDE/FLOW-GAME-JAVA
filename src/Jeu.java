@@ -12,8 +12,13 @@ import java.io.IOException;
 import java.util.Scanner;
 public class Jeu extends Observable implements Runnable {
     private VueCase caseDepart;
-    private VueCase prevCase;
-    private JComponent currentComponent;
+    public boolean drag_initiated =false;
+    public boolean drop_initiated= false;
+    private VueCase currentComponent;
+    private Path red = new Path();
+    private Path green = new Path();
+    private Path yellow = new Path();
+    private Path cyan = new Path();
     public void init(VueCase[][] tabCV, int size) {
             FileReader inputFile;
             int currentId;
@@ -52,17 +57,35 @@ public class Jeu extends Observable implements Runnable {
                     public void mousePressed(MouseEvent e) {
                         //Point p = hashmap.get(e.getSource()); // (*) permet de récupérer les coordonnées d'une caseVue
                         caseDepart = ((VueCase) e.getSource());
-
+                        switch(caseDepart.m.getType()) {
+                            case S1 :   red.ajouter(0, caseDepart);
+                            case S2 :   green.ajouter(0, caseDepart);
+                            case S3 :   cyan.ajouter(0, caseDepart);
+                            case S4 :   yellow.ajouter(0, caseDepart);
+                        }
+                        System.out.println("pressed"+caseDepart.m.getType());
+                        //drag_initiated = true; drag problem mouse can be pressed and released in the same case but the drag is initiated
                         System.out.println("mousePressed : " + caseDepart);
 
 
                     }
-
+                    int k =1;
+                    int h=1;
+                    int q =1;
+                    int z =1;
                     @Override
                     public void mouseEntered(MouseEvent e) {
                         // (**) - voir commentaire currentComponent
-                        currentComponent = (JComponent) e.getSource();
-
+                        currentComponent = (VueCase) e.getSource();
+                        if(currentComponent.m.getType() == CaseType.empty)
+                        {
+                            switch(caseDepart.m.getType()) {
+                                case S1 :   red.ajouter(k++, currentComponent);break;
+                                case S2 :   green.ajouter(h++, currentComponent);break;
+                                case S3 :   cyan.ajouter(q++, currentComponent);break;
+                                case S4 :   yellow.ajouter(z++, currentComponent);break;
+                            }
+                        }
                         System.out.println("mouseEntered : " + e.getSource());
                     }
 
@@ -71,6 +94,49 @@ public class Jeu extends Observable implements Runnable {
                     public void mouseReleased(MouseEvent e) {
                         // (**) - voir commentaire currentComponent
                         System.out.println("mouseReleased : " + currentComponent);
+
+                        if(currentComponent.m.getType() != caseDepart.m.getType())
+                        {
+                            switch(caseDepart.m.getType()) {
+                                case S1 :   red.viderChemin();break;
+                                case S2 :   green.viderChemin();break;
+                                case S3 :   cyan.viderChemin();break;
+                                case S4 :   yellow.viderChemin();break;
+                            }
+
+
+
+                        }else
+                        {
+                            switch(caseDepart.m.getType()) {
+                                case S1 : for(int g = 1;g < red.getTrajetSize();g++) {
+
+                                    tabCV[red.trajet.get(g).x ][red.trajet.get(g).y ].m.setType(CaseType.S1);
+                                    System.out.println(tabCV[red.trajet.get(g).x ][red.trajet.get(g).y ].m.getType());
+                                }
+                                    red.removeDuplicate(); red.viderChemin();break;
+                                case S2 : for(int g = 1;g < green.getTrajetSize();g++) {
+
+                                    tabCV[green.trajet.get(g).x ][green.trajet.get(g).y ].m.setType(CaseType.S2);
+                                    System.out.println(tabCV[green.trajet.get(g).x ][green.trajet.get(g).y ].m.getType());
+                                }
+                                    green.removeDuplicate(); green.viderChemin();break;
+                                case S3 : for(int g = 1;g < cyan.getTrajetSize();g++) {
+
+                                    tabCV[cyan.trajet.get(g).x ][cyan.trajet.get(g).y ].m.setType(CaseType.S3);
+                                    System.out.println(tabCV[cyan.trajet.get(g).x ][cyan.trajet.get(g).y ].m.getType());
+                                }
+                                    cyan.removeDuplicate(); cyan.viderChemin();break;
+                                case S4 : for(int g = 1;g < yellow.getTrajetSize();g++) {
+
+                                    tabCV[yellow.trajet.get(g).x ][yellow.trajet.get(g).y ].m.setType(CaseType.S4);
+                                    System.out.println(tabCV[yellow.trajet.get(g).x ][yellow.trajet.get(g).y ].m.getType());
+                                }
+                                    yellow.removeDuplicate(); yellow.viderChemin();break;
+                            }
+                        }
+                        setChanged();
+                        notifyObservers();
                     }
                 });
 
@@ -79,7 +145,17 @@ public class Jeu extends Observable implements Runnable {
         setChanged();
         notifyObservers();
     }
-    
+    public void drag_drop(VueCase[][] tabCV)
+    {
+        if (drag_initiated)
+        {
+
+
+            System.out.println(tabCV[currentComponent.getX()/60][currentComponent.getY()/60].m.getType());
+            setChanged();
+            notifyObservers();
+        }
+    }
 
     public void run() {
         while(true) {
