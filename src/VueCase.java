@@ -6,14 +6,14 @@ import java.util.Random;
 // TODO : redéfinir la fonction hashValue() et equals(Object) si vous souhaitez utiliser la hashmap de VueControleurGrille avec VueCase en clef
 
 public class VueCase extends JPanel {
-    public int x, y;
+    public int x, y;//les cordonnées d'une case dans un tableau 2D
 
     private static Random rnd = new Random();
-    public ModelCase m = new ModelCase();
+    public ModelCase m = new ModelCase();//Le type d'une case
     public VueCase(int _x, int _y,CaseType _type) {
         x = _x;
         y = _y;
-        m.setType(_type);
+        m.setType(_type);//initialiser le Type d'une case a partir d'un type de case _type
     }
 
 
