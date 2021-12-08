@@ -34,6 +34,8 @@ public class VueControleurGrille extends JFrame implements Observer {
         initVueControleurGrille(_j,size);
 
         System.out.println("["+tabCV[0][0].x+" ,"+tabCV[0][0].y+"]");
+
+
     }
 
 
@@ -46,7 +48,10 @@ public class VueControleurGrille extends JFrame implements Observer {
         _j.init(tabCV,size);
 
 
-        JPanel contentPane = new JPanel(new BorderLayout());
+
+       
+
+
 
         JPanel stack = new JPanel(new CardLayout(30,30));
         //stack.setSize(new Dimension(300,300));
@@ -149,14 +154,21 @@ public class VueControleurGrille extends JFrame implements Observer {
         stack.add(jeu,"grille");
 
 
-        contentPane.add(stack, BorderLayout.CENTER);
-
-
-        setContentPane(contentPane);
-
-
+       // JPanel contentPane = new JPanel(new BorderLayout());
+        Image img = Toolkit.getDefaultToolkit().getImage("out/icons/Dot_Pattern_Free_Vector.jpg");
+        this.setContentPane(new JPanel(new BorderLayout()) {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(img, 0, 0, null);
+                add(stack,BorderLayout.CENTER);
+            }
+        });
 
     }
+
+
+
 
 
 
@@ -171,9 +183,9 @@ public class VueControleurGrille extends JFrame implements Observer {
         VueControleurGrille vue = new VueControleurGrille(j1,6);
         vue.setVisible(true);
         j1.addObserver(vue);
-
+/*
         Thread t1=new Thread(j1);
-        t1.start();
+        t1.start();*/
 
 
 
