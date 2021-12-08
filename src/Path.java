@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class Path {
     public ArrayList<VueCase> trajet;
     public CaseType type;
+    public boolean done = false;
     public Path(){
         trajet = new ArrayList<VueCase>() {};
     }
@@ -42,7 +43,14 @@ public class Path {
         }
         return false;
     }
-
+    public VueCase pred(VueCase case1){
+        int indice=0;
+        removeDuplicate();
+        for(int i = 0; i < trajet.size(); i++){
+            if(trajet.get(i).equals(case1)) indice =i;
+        }
+        return trajet.get(indice-1);
+    }
 
 
     public void viderChemin(){
