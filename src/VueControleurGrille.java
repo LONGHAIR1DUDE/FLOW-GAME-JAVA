@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Observer;
 import java.util.Observable;
 public class VueControleurGrille extends JFrame implements Observer {
-    private static final int PIXEL_PER_SQUARE = 60;
+    private static final int PIXEL_PER_SQUARE = 120;
     // tableau de cases : i, j -> case
     private VueCase[][] tabCV;
     // hashmap : case -> i, j
@@ -64,7 +64,7 @@ public class VueControleurGrille extends JFrame implements Observer {
 
 
         home= new JButton();
-        home.setIcon(new ImageIcon("out/icons/about.png"));
+        home.setIcon(new ImageIcon("out/icons/maison.png"));
         home.setToolTipText("Menu");
         home.addActionListener(
                 (e ->

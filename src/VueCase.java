@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
@@ -13,7 +14,11 @@ public class VueCase extends JPanel {
     public VueCase(int _x, int _y,CaseType _type) {
         x = _x;
         y = _y;
-        m.setType(_type);//initialiser le Type d'une case a partir d'un type de case _type
+        m.setType(_type);//initialiser le Type d'une case a partir d'un type de case _typ
+
+        Border lineborder = BorderFactory.createLineBorder(Color.black, 1);
+        //associer à JLabel
+        this.setBorder(lineborder);
     }
 
 
@@ -30,18 +35,22 @@ public class VueCase extends JPanel {
 
         switch(m.getType()) {
             case S1 :
+                g.drawOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 g.setColor(Color.RED);
                 g.fillOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 break;
             case S2 :
+                g.drawOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 g.setColor(Color.GREEN);
                 g.fillOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 break;
             case S3 :
+                g.drawOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 g.setColor(Color.CYAN);
                 g.fillOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 break;
             case S4 :
+                g.drawOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 g.setColor(Color.YELLOW);
                 g.fillOval(getWidth()/5 +2, getHeight()/5 +2,getWidth()/2, getHeight()/2);
                 break;
