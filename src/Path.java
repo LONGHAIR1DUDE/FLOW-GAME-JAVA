@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 public class Path {
     public ArrayList<VueCase> trajet;
-
+    public CaseType type;
     public Path(){
         trajet = new ArrayList<VueCase>() {};
     }
@@ -31,15 +31,14 @@ public class Path {
     }
 
     public void ajouter(int indice, VueCase _case){
-        //if(trajet.isEmpty() || Math.abs(_case.getId()) == trajet.get(0).getId()){
+
             trajet.add(indice, _case);
-    //    }
+
     }
 
     public boolean contientCase(VueCase case1){
-        for(int i = 0; i < trajet.size()-1; i++){
-            if(trajet.get(i).equals(case1))
-                return true;
+        for(int i = 0; i < trajet.size(); i++){
+            if(trajet.get(i).equals(case1)) return true;
         }
         return false;
     }

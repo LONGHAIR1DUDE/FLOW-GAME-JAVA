@@ -27,8 +27,8 @@ public class VueControleurGrille extends JFrame implements Observer {
         _j.init(tabCV,size);
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(size, size));
-         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+         for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
 
                 contentPane.add(tabCV[i][j]);
 
@@ -43,7 +43,7 @@ public class VueControleurGrille extends JFrame implements Observer {
     public static void main(String[] args) {
 
         Jeu j1 = new Jeu();
-        VueControleurGrille vue = new VueControleurGrille(j1,4);
+        VueControleurGrille vue = new VueControleurGrille(j1,6);
         vue.setVisible(true);
         j1.addObserver(vue);
 
